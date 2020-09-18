@@ -1,0 +1,14 @@
+.todo {
+  list-style: none;
+  padding: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.todo button {
+  margin-left: 0.5rem;
+  padding: 0.3rem;
+}
+
+.completed {
+  text-decoration: line-through;
+}

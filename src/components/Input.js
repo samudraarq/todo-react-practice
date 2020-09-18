@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import styles from "./Input.module.css";
 
 const Input = ({ submitTodos }) => {
   const [text, setText] = useState("");
@@ -15,7 +16,7 @@ const Input = ({ submitTodos }) => {
   };
 
   return (
-    <form onSubmit={(e) => handleSubmit(e)}>
+    <form onSubmit={(e) => handleSubmit(e)} className={styles.input}>
       <input type="text" onChange={handleChange} value={text} />
       <button>ADD</button>
     </form>

@@ -1,8 +1,9 @@
 import React from "react";
+import styles from "./Filter.module.css";
 
 const Filter = ({ filterTodo }) => {
   return (
-    <>
+    <div className={styles.filter}>
       <label htmlFor="filterTodo">Filter Todo</label>
       <select
         name="filterTodo"
@@ -13,7 +14,7 @@ const Filter = ({ filterTodo }) => {
         <option value="completed">Completed</option>
         <option value="notcomplete">Not Complete</option>
       </select>
-    </>
+    </div>
   );
 };
 
