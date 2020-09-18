@@ -54,7 +54,6 @@ class App extends Component {
     this.setState({
       todos: newTodos,
     });
-    this.filterTodo();
   };
 
   editTodo = (id) => {

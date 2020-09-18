@@ -8,16 +8,17 @@ const Input = ({ submitTodos }) => {
     setText(val);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     submitTodos(text);
     setText("");
   };
 
   return (
-    <div>
+    <form onSubmit={(e) => handleSubmit(e)}>
       <input type="text" onChange={handleChange} value={text} />
-      <button onClick={handleSubmit}>ADD</button>
-    </div>
+      <button>ADD</button>
+    </form>
   );
 };
 
