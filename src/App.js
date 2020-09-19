@@ -3,26 +3,32 @@ import "./App.css";
 import Filter from "./components/Filter";
 import Header from "./components/Header";
 import Input from "./components/Input";
+import Sort from "./components/Sort";
 import Todos from "./components/Todos";
 
 class App extends Component {
   state = {
     todos: [],
-    filteredTodos: [],
     filterStatus: "all",
+    filteredTodos: [],
+    sortStatus: "default",
+    sortedTodos: [],
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     this.getStorage();
+    this.sortTodo();
     this.filterTodo();
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (
+      prevState.sortStatus !== this.state.sortStatus ||
       prevState.filterStatus !== this.state.filterStatus ||
       prevState.todos !== this.state.todos
     ) {
       this.setStorage();
+      this.sortTodo();
       this.filterTodo();
     }
   }
@@ -83,19 +89,64 @@ class App extends Component {
 
   filterTodo = () => {
     if (this.state.filterStatus === "completed") {
-      this.setState({
-        filteredTodos: this.state.todos.filter(
+      this.setState((state) => ({
+        filteredTodos: state.sortedTodos.filter(
           (todo) => todo.completed === true
         ),
-      });
+      }));
     } else if (this.state.filterStatus === "notcomplete") {
-      this.setState({
-        filteredTodos: this.state.todos.filter(
+      this.setState((state) => ({
+        filteredTodos: state.sortedTodos.filter(
           (todo) => todo.completed === false
         ),
-      });
+      }));
     } else {
-      this.setState({ filteredTodos: this.state.todos });
+      this.setState((state) => ({ filteredTodos: state.sortedTodos }));
+    }
+  };
+
+  setSortStatus = (val) => {
+    this.setState({ sortStatus: val });
+  };
+
+  sortTodo = () => {
+    if (this.state.sortStatus === "az") {
+      const compare = (a, b) => {
+        // Use toUpperCase() to ignore character casing
+        const textA = a.text.toUpperCase();
+        const textB = b.text.toUpperCase();
+
+        let comparison = 0;
+        if (textA > textB) {
+          comparison = 1;
+        } else if (textA < textB) {
+          comparison = -1;
+        }
+        return comparison;
+      };
+      const newTodos = [...this.state.todos];
+      newTodos.sort(compare);
+      console.log(newTodos);
+      this.setState({ sortedTodos: newTodos });
+    } else if (this.state.sortStatus === "za") {
+      const compare = (a, b) => {
+        // Use toUpperCase() to ignore character casing
+        const textA = a.text.toUpperCase();
+        const textB = b.text.toUpperCase();
+
+        let comparison = 0;
+        if (textA > textB) {
+          comparison = 1;
+        } else if (textA < textB) {
+          comparison = -1;
+        }
+        return comparison * -1;
+      };
+      const newTodos = [...this.state.todos];
+      newTodos.sort(compare);
+      this.setState({ sortedTodos: newTodos });
+    } else {
+      this.setState({ sortedTodos: this.state.todos });
     }
   };
 
@@ -132,6 +183,7 @@ class App extends Component {
         <Header />
         <Input submitTodos={this.submitTodos} />
         <Filter filterTodo={this.setStatusFilter} />
+        <Sort sortTodo={this.setSortStatus} />
         <Todos
           todos={this.state.filteredTodos}
           remove={this.removeTodo}
