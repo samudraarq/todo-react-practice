@@ -9,6 +9,11 @@
   padding: 0.3rem;
 }
 
+.todo input {
+  padding: 0.5rem;
+  font-size: 1.2rem;
+}
+
 .completed {
   text-decoration: line-through;
 }

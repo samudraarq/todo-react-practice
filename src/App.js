@@ -31,7 +31,13 @@ class App extends Component {
     this.setState({
       todos: [
         ...this.state.todos,
-        { text, date: new Date(), completed: false, id: Math.random() },
+        {
+          text,
+          date: new Date(),
+          completed: false,
+          id: Math.random(),
+          isEditing: false,
+        },
       ],
     });
   };
