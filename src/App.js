@@ -7,27 +7,13 @@ import Todos from "./components/Todos";
 
 class App extends Component {
   state = {
-    todos: [
-      {
-        text: "this is a todo",
-        date: new Date(),
-        completed: false,
-        id: 1,
-        isEditing: false,
-      },
-      {
-        text: "this is another todo",
-        date: new Date(),
-        completed: false,
-        id: 2,
-        isEditing: false,
-      },
-    ],
+    todos: [],
     filteredTodos: [],
     filterStatus: "all",
   };
 
   componentDidMount() {
+    this.getStorage();
     this.filterTodo();
   }
 
@@ -36,6 +22,7 @@ class App extends Component {
       prevState.filterStatus !== this.state.filterStatus ||
       prevState.todos !== this.state.todos
     ) {
+      this.setStorage();
       this.filterTodo();
     }
   }
@@ -104,6 +91,33 @@ class App extends Component {
     } else {
       this.setState({ filteredTodos: this.state.todos });
     }
+  };
+
+  getStorage = () => {
+    let localTodos = JSON.parse(localStorage.getItem("todos"));
+    if (!localTodos) {
+      localTodos = [
+        {
+          text: "this is a todo",
+          date: new Date(),
+          completed: false,
+          id: 1,
+          isEditing: false,
+        },
+        {
+          text: "this is another todo",
+          date: new Date(),
+          completed: false,
+          id: 2,
+          isEditing: false,
+        },
+      ];
+    }
+    this.setState({ todos: localTodos });
+  };
+
+  setStorage = () => {
+    localStorage.setItem("todos", JSON.stringify(this.state.todos));
   };
 
   render() {
