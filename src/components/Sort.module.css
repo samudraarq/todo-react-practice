@@ -1,0 +1,16 @@
+.sort {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.sort label {
+  margin-right: 1rem;
+}
+
+.sort select {
+  padding: 0.3rem;
+  cursor: pointer;
+}
+.sort select:focus {
+  outline: none;
+}
