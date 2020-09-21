@@ -15,7 +15,7 @@ class App extends Component {
     sortedTodos: [],
   };
 
-  async componentDidMount() {
+  componentDidMount() {
     this.getStorage();
     this.sortTodo();
     this.filterTodo();
@@ -126,7 +126,6 @@ class App extends Component {
       };
       const newTodos = [...this.state.todos];
       newTodos.sort(compare);
-      console.log(newTodos);
       this.setState({ sortedTodos: newTodos });
     } else if (this.state.sortStatus === "za") {
       const compare = (a, b) => {
